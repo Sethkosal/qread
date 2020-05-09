@@ -111,6 +111,7 @@ class AllProduct extends React.Component {
                       {obj.meta}
                     </div>
                   </div>
+                  
                   <div className="content">
                     <table className="ui basic selectable celled table">
                       <tbody>
@@ -147,6 +148,12 @@ class AllProduct extends React.Component {
       </div>
     );
   }
+}
+
+const addtobasket=(obj) =>(e)=>{
+  /* console.log(e)
+  console.log(obj) */
+  alert(obj.favFood + " has been added to basket!")
 }
 
 function ProductDetail(props) {
@@ -198,6 +205,7 @@ function ProductDetail(props) {
                     {obj.meta}
                   </div>
                 </div>
+                
                 <div className="content">
                   <table className="ui selectable celled basic table">
                     <tbody>
@@ -224,7 +232,14 @@ function ProductDetail(props) {
                     </tbody>
                   </table>
                 </div>
-
+                <div className="content">
+                  {/* <button className="ui right floated primary button" onClick={addtobasket(obj)}>Add to Basket</button> */}
+                  <button className="ui primary right floated right labeled icon button" onClick={addtobasket(obj)}>
+                    <i class="right arrow icon"></i>
+                      Add to Basket
+                  </button>
+                  <button className="ui left floated button">Reduce Stock</button>
+                </div>
 
               </div>
             )
