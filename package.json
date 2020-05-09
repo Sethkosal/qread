@@ -1,5 +1,5 @@
 {
-  "name": "sheets-cms-demo",
+  "name": "qread",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
