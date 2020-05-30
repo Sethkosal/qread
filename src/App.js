@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import Tabletop from 'tabletop';
 import './App.css';
+import './assets/fomantic/dist/semantic.css';
+import { Container, Header } from 'semantic-ui-react';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/1dJ6DiA5_ZBy61t9KI2HF3vF1rw_0sarbRqkt3g4Kt4M/edit?usp=sharing',
+      key: 'https://docs.google.com/spreadsheets/d/1igfFQgpLxZxDOcW8KzlCX_Rk4LQzmEnMzEXpXxTTYz0/edit?usp=sharing',
       callback: googleData => {
         this.setState({
           data: googleData
@@ -67,7 +70,7 @@ class AllProduct extends React.Component {
   }
   render() {
     Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/1dJ6DiA5_ZBy61t9KI2HF3vF1rw_0sarbRqkt3g4Kt4M/edit?usp=sharing',
+      key: 'https://docs.google.com/spreadsheets/d/1igfFQgpLxZxDOcW8KzlCX_Rk4LQzmEnMzEXpXxTTYz0/edit?usp=sharing',
       callback: googleData => {
         this.setState({
           data: googleData
@@ -85,13 +88,14 @@ class AllProduct extends React.Component {
             <p>QREAD</p>
           </div>
         </div>
+
         <div id="person-details" className="ui stackable cards">
           {
             this.state.data.map(obj => {
               return (
                 <div key={obj.id} className="card">
                   <div className="content">
-                    <div className="header left aligned" style={{ fontSize: 25 }}>{obj.favFood}</div>
+                    <div className="header left aligned" style={{ fontSize: 25 }}>{obj.specification}</div>
                     {/* <div className="meta left aligned" style={{fontFamily:"Khmer"}}>
                       <a>{obj.favFoodkh}</a>
                     </div> */}
@@ -100,12 +104,12 @@ class AllProduct extends React.Component {
                     </div>
                   </div>
                   <div className="image">
-                    <img src={obj.imgsrc} alt={obj.favFood} />
+                    <img src={obj.img_src} alt={obj.specification} />
                   </div>
                   <div className="content">
 
                     <div className="meta left aligned">
-                      <a>#{obj.favFood}</a>
+                      <a>#{obj.specification}</a>
                     </div>
                     <div className="description left aligned">
                       {obj.meta}
@@ -117,19 +121,20 @@ class AllProduct extends React.Component {
                       <tbody>
                         <tr>
                           <td><i className="tag icon"></i> Unit Price:</td>
-                          <td>${obj.price}</td>
+                          <td>${obj.unit_price}</td>
                         </tr>
                         <tr>
                           <td><i className="cogs icon"></i> Material:</td>
-                          <td>{obj.name}</td>
+                          <td>{obj.material}</td>
                         </tr>
+                        
                         <tr>
                           <td><i className="paint brush icon"></i> Color:</td>
-                          <td>{obj.color}</td>
+                          <td>{obj.pattern +" "+obj.color}</td>
                         </tr>
                         <tr>
                           <td><i className="chess board icon"></i> Fabric:</td>
-                          <td>{obj.fabric}</td>
+                          <td>{obj.thread+" "+obj.quality}</td>
                         </tr>
                         <tr>
                           <td><i className="dolly flatbed icon"></i> QTY available:</td>
@@ -138,7 +143,14 @@ class AllProduct extends React.Component {
                       </tbody>
                     </table>
                   </div>
-
+                  <div className="content">
+                  {/* <button className="ui right floated primary button" onClick={addtobasket(obj)}>Add to Basket</button> */}
+                  <button className="ui primary right floated right labeled icon button" onClick={addtobasket(obj)}>
+                    <i className="right arrow icon"></i>
+                      Add to Basket
+                  </button>
+                  <button className="ui left floated button">Reduce Stock</button>
+                </div>
 
                 </div>
               )
@@ -153,7 +165,7 @@ class AllProduct extends React.Component {
 const addtobasket=(obj) =>(e)=>{
   /* console.log(e)
   console.log(obj) */
-  alert(obj.favFood + " has been added to basket!")
+  alert(obj.specification + " has been added to basket!")
 }
 
 function ProductDetail(props) {
@@ -162,7 +174,7 @@ function ProductDetail(props) {
   let x = [];
   console.log("this is id", id);
   data.forEach(element => {
-    if (element.id === id) {
+    if (element.code === id) {
       x = new Array(element);
       console.log(x);
     }
@@ -185,7 +197,7 @@ function ProductDetail(props) {
             return (
               <div key={obj.id} className="card">
                 <div className="content">
-                  <div className="header left aligned" style={{ fontSize: 25 }}>{obj.favFood}</div>
+                  <div className="header left aligned" style={{ fontSize: 25 }}>{obj.specification}</div>
                   {/* <div className="meta left aligned" style={{fontFamily:"Khmer"}}>
                       <a>{obj.favFoodkh}</a>
                     </div> */}
@@ -194,12 +206,12 @@ function ProductDetail(props) {
                   </div>
                 </div>
                 <div className="image">
-                  <img src={obj.imgsrc} alt={obj.favFood} />
+                  <img src={obj.img_src} alt={obj.specification} />
                 </div>
                 <div className="content">
 
                   <div className="meta left aligned">
-                    <a>#{obj.favFood}</a>
+                    <a>#{obj.specification}</a>
                   </div>
                   <div className="description left aligned">
                     {obj.meta}
@@ -211,19 +223,19 @@ function ProductDetail(props) {
                     <tbody>
                       <tr>
                         <td><i className="tag icon"></i> Unit Price:</td>
-                        <td>${obj.price}</td>
+                        <td>${obj.unit_price}</td>
                       </tr>
                       <tr>
                         <td><i className="cogs icon"></i> Material:</td>
-                        <td>{obj.name}</td>
+                        <td>{obj.material}</td>
                       </tr>
                       <tr>
                         <td><i className="paint brush icon"></i> Color:</td>
-                        <td>{obj.color}</td>
+                        <td>{obj.pattern +" "+obj.color}</td>
                       </tr>
                       <tr>
                         <td><i className="chess board icon"></i> Fabric:</td>
-                        <td>{obj.fabric}</td>
+                        <td>{obj.thread+" "+obj.quality}</td>
                       </tr>
                       <tr>
                         <td><i className="dolly flatbed icon"></i> QTY available:</td>
@@ -235,7 +247,7 @@ function ProductDetail(props) {
                 <div className="content">
                   {/* <button className="ui right floated primary button" onClick={addtobasket(obj)}>Add to Basket</button> */}
                   <button className="ui primary right floated right labeled icon button" onClick={addtobasket(obj)}>
-                    <i class="right arrow icon"></i>
+                    <i className="right arrow icon"></i>
                       Add to Basket
                   </button>
                   <button className="ui left floated button">Reduce Stock</button>
